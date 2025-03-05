@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import exampleReducer from "./features/exampleSlice";
 
 export const store = configureStore({
   reducer: {
-    // weather: weatherReducer, // define your reducer here
+    example: exampleReducer, // define your reducer here
   },
 });
 

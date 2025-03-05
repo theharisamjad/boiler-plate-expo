@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, SafeAreaView, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Provider } from "react-redux";
 import AppNavigator from "./navigation/AppNavigator";
 import useFonts from "./hooks/useFonts";
+import { store } from "./store";
+import { colors } from "./constants/colors";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 const App: React.FC = () => {
   const [appIsReady, setAppIsReady] = useState<boolean>(false);
-  // const { theme, paperTheme } = useTheme();
   const fontsLoaded = useFonts();
 
   useEffect(() => {
@@ -46,19 +47,17 @@ const App: React.FC = () => {
   }
 
   return (
-    <GestureHandlerRootView
-      style={styles.container}
-      onLayout={onLayoutRootView}
-    >
-      <AppNavigator />
-    </GestureHandlerRootView>
+    <SafeAreaView style={styles.safeArea} onLayout={onLayoutRootView}>
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    justifyContent: "center",
   },
 });
 

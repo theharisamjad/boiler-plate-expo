@@ -1,0 +1,1 @@
+// define typescript types here
